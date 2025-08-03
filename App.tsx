@@ -1,5 +1,6 @@
 
 import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import BottomBar from './src/stack/BottomBar';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -7,7 +8,7 @@ function App() {
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Text>Sample</Text>
+      <BottomBar/>
     </View>
   );
 }
