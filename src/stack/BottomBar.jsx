@@ -16,7 +16,7 @@ const HomeScreen = () => {
 
   return (
     <View style={{ marginTop: 100, alignItems: 'center' }}>
-      <Text style={{ fontSize: 24 }}>Count: {count}</Text>
+      <Text className={'text-red-600'} style={{ fontSize: 24 }}>Count: {count}</Text>
       <Button title="Increment" onPress={increment} >
           Increment
       </Button>
