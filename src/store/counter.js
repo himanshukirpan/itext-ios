@@ -1,7 +1,7 @@
 // store.js
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useCounterStore = create(
   persist(
@@ -11,8 +11,8 @@ export const useCounterStore = create(
       reset: () => set({ count: 0 }),
     }),
     {
-      name: 'counter-storage', // unique name
-      getStorage: () => AsyncStorage, // use AsyncStorage in React Native
+      name: 'counter-storage',
+      storage: createJSONStorage(() => AsyncStorage),
     }
   )
 );
