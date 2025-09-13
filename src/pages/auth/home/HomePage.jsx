@@ -1,4 +1,4 @@
-import {useAuthStore} from "../../store/authStore";
+import {useAuthStore} from "../../../store/authStore";
 import {StyleSheet, Text, View} from "react-native";
 import {Button} from "react-native-paper";
 

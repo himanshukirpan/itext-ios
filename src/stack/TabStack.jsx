@@ -9,7 +9,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {blurHeaderOptions, styles} from "./BlurHeaderOptions";
-import HomePage from "../pages/auth/HomePage";
+import HomePage from "../pages/auth/home/HomePage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
