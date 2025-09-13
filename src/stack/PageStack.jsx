@@ -20,9 +20,14 @@ export default (() => {
             options={{title: "tabs", headerShown: false}}
         />
         <Stack.Screen
+            name={"numbers"}
+            component={NumberPage}
+            options={{title:'Numbers' , headerShown: true}}
+        />
+        <Stack.Screen
             name={"my_number"}
             component={MyNumberDetailPage}
-            options={{title:'My Number' , headerShown: true}}
+            options={{title:'My Number Details' , headerShown: true}}
         />
         <Stack.Screen
             name={'payment'}
