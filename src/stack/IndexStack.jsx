@@ -1,5 +1,5 @@
 import GuestStack from "./GuestStack";
-import TabStack from "./TabStack2";
+import TabStack from "./TabStack";
 import {NavigationContainer} from "@react-navigation/native";
 import {useAuthStore} from "../store/authStore";
 

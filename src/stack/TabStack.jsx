@@ -1,153 +1,103 @@
-import React from 'react';
-import {
-    View,
-    Text,
-    Animated,
-    Pressable,
-} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {blurHeaderOptions, styles} from "./BlurHeaderOptions";
-import HomePage from "../pages/auth/home/HomePage";
+import React, {useEffect} from "react";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Animated, {useSharedValue, useAnimatedStyle, withSpring} from "react-native-reanimated";
+
+import DialpadPage from "../pages/auth/dialpad/DialpadPage";
+import DialpadHeader from "../pages/auth/dialpad/DialpadHeader";
+import RecentPage from "../pages/auth/recent/RecentPage";
+import RecentHeader from "../pages/auth/recent/RecentHeader";
+import ContactPage from "../pages/auth/contact/ContactPage";
+import ContactHeader from "../pages/auth/contact/ContactHeader";
+import MessageHeader from "../pages/auth/message/MessageHeader";
+import MessagePage from "../pages/auth/message/MessagePage";
+
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
 
+// Animated Icon
+function AnimatedIcon({name, color, size, focused}) {
+    const scale = useSharedValue(1);
 
-const CustomPage = ({name = "Home Screen"}) => {
-    return <View style={styles.screen}>
-        <Text style={{color: 'white', fontSize: 24}}>{name}</Text>
-    </View>
-}
-
-function DynamicStack({stackKey}) {
-    return (
-        <Stack.Navigator screenOptions={blurHeaderOptions}>
-            {stackScreens[stackKey].map((screen) => (
-                <Stack.Screen
-                    key={screen.name}
-                    name={screen.name}
-                    component={screen.component}
-                    options={{title: screen.title}}
-                />
-            ))}
-        </Stack.Navigator>
-    );
-}
-
-const stackScreens = {
-    Home: [
-        {
-            name: "HomeMain",
-            component: HomePage,
-            title: "Home"
-        },
-    ],
-    Settings: [
-        {
-            name: "SettingsMain",
-            component: (props) => <CustomPage {...props} name="Setting Page"/>,
-            title: "Settings"
-        },
-    ],
-    Store: [
-        {
-            name: "StoreMain",
-            component: (props) => <CustomPage {...props} name="Store Page"/>,
-            title: "Store"
-        },
-    ],
-    About: [
-        {
-            name: "AboutMain",
-            component: (props) => <CustomPage {...props} name="About Page"/>,
-            title: "About"
-        },
-    ],
-};
-const tabConfig = [
-    {name: "Home", stackKey: "Home", label: "Home", icon: "home"},
-    {name: "Settings", stackKey: "Settings", label: "Settings", icon: "cog"},
-    {name: "Store", stackKey: "Store", label: "Store", icon: "store"},
-    {name: "About", stackKey: "About", label: "About", icon: "information"},
-];
-
-
-const pillColor = '#3b82f6';
-const CustomTabBarButton = ({children, onPress, accessibilityState}) => {
-    const focused = accessibilityState.selected;
-    const scaleValue = React.useRef(new Animated.Value(focused ? 1 : 0)).current;
-
-    React.useEffect(() => {
-        Animated.timing(scaleValue, {
-            toValue: focused ? 1 : 0,
-            duration: 250,
-            useNativeDriver: true,
-        }).start();
+    useEffect(() => {
+        scale.value = withSpring(focused ? 1.2 : 1, {
+            damping: 10, stiffness: 200,
+        });
     }, [focused]);
 
-    return (
-        <Pressable onPress={onPress} style={{flex: 1, alignItems: 'center'}}>
-            <View style={{position: 'absolute', top: 1, bottom: 12, left: 20, right: 20}}>
-                <Animated.View
-                    style={[
-                        styles.pillBackground,
-                        {
-                            backgroundColor: pillColor,
-                            opacity: scaleValue,
-                            transform: [
-                                {
-                                    scale: scaleValue.interpolate({
-                                        inputRange: [0, 1],
-                                        outputRange: [0.7, 1],
-                                    }),
-                                },
-                            ],
-                        },
-                    ]}
-                />
-            </View>
-            {children}
-        </Pressable>
-    );
-};
+    const animatedStyle = useAnimatedStyle(() => ({
+        transform: [{scale: scale.value}],
+    }));
 
-
-export default () => {
-    return (
-        <Tab.Navigator
-            initialRouteName="Home"
-            screenOptions={{
-                headerShown: false,
-                tabBarShowLabel: true,
-                tabBarActiveTintColor: "#fff",
-                tabBarInactiveTintColor: "#888",
-                tabBarStyle: {
-                    backgroundColor: "#111",
-                    height: 60,
-                    paddingBottom: 8,
-                    paddingTop: 8,
-                    borderTopWidth: 0,
-                },
-            }}
-        >
-            {tabConfig.map((tab) => (
-                <Tab.Screen
-                    key={tab.name}
-                    name={tab.name}
-                    options={{
-                        tabBarLabel: tab.label,
-                        tabBarIcon: ({color, size}) => (
-                            <MaterialCommunityIcons name={tab.icon} color={color} size={size}/>
-                        ),
-                        tabBarButton: (props) => <CustomTabBarButton {...props} />,
-                    }}
-                >
-                    {() => <DynamicStack stackKey={tab.stackKey}/>}
-                </Tab.Screen>
-            ))}
-        </Tab.Navigator>
-    );
+    return (<Animated.View style={animatedStyle}>
+        <MaterialCommunityIcons name={name} color={color} size={size}/>
+    </Animated.View>);
 }
 
+export default function TabStack() {
+
+    return (<Tab.Navigator
+
+        screenOptions={{
+            headerShown: true, tabBarActiveTintColor: "red", tabBarInactiveTintColor: "#888",
+
+        }}
+    >
+        <Tab.Screen
+            name="Contacts"
+            component={ContactPage}
+            options={{
+                headerShown: true, // full custom header
+                header: () => (<ContactHeader/>),
+                tabBarIcon: ({color, size, focused}) => (<AnimatedIcon
+                    name="account-group"
+                    color={color}
+                    size={size}
+                    focused={focused}
+                />),
+            }}
+        />
+        <Tab.Screen
+            name="Recent"
+            component={RecentPage}
+            options={{
+                headerShown: true, // full custom header
+                header: () => (<RecentHeader/>),
+                tabBarIcon: ({color, size, focused}) => (<AnimatedIcon
+                    name="restore"
+                    color={color}
+                    size={size}
+                    focused={focused}
+                />),
+            }}
+        />
+        <Tab.Screen
+            name="DialPad"
+            component={DialpadPage}
+            options={{
+                headerShown: true, // full custom header
+                header: () => (<DialpadHeader/>),
+                tabBarIcon: ({color, size, focused}) => (<AnimatedIcon
+                    name="apps"
+                    color={color}
+                    size={size}
+                    focused={focused}
+                />)
+            }}
+        />
+        <Tab.Screen
+            name="Messages"
+            component={MessagePage}
+            options={{
+                headerShown: true, // full custom header
+                header: () => (<MessageHeader/>),
+                tabBarIcon: ({color, size, focused}) => (<AnimatedIcon
+                    name="message-text"
+                    color={color}
+                    size={size}
+                    focused={focused}
+                />),
+            }}
+        />
+    </Tab.Navigator>);
+}
