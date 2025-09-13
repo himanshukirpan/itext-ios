@@ -12,10 +12,11 @@ import DialpadPage from "../pages/auth/dialpad/DialpadPage";
 import DialpadHeader from "../pages/auth/dialpad/DialpadHeader";
 import RecentPage from "../pages/auth/recent/RecentPage";
 import RecentHeader from "../pages/auth/recent/RecentHeader";
+import ContactPage from "../pages/auth/contact/ContactPage";
+import ContactHeader from "../pages/auth/contact/ContactHeader";
+import MessageHeader from "../pages/auth/message/MessageHeader";
+import MessagePage from "../pages/auth/message/MessagePage";
 
-// Replace with your real ones later
-const ContactsScreen = MessagesScreen;
-const MoreScreen = MessagesScreen;
 
 const Tab = createBottomTabNavigator();
 
@@ -47,6 +48,21 @@ export default function TabStack() {
 
         }}
     >
+
+        <Tab.Screen
+            name="Contacts"
+            component={ContactPage}
+            options={{
+                headerShown: true, // full custom header
+                header: () => (<ContactHeader/>),
+                tabBarIcon: ({color, size, focused}) => (<AnimatedIcon
+                    name="account-group"
+                    color={color}
+                    size={size}
+                    focused={focused}
+                />),
+            }}
+        />
         <Tab.Screen
             name="Recent"
             component={RecentPage}
@@ -77,16 +93,10 @@ export default function TabStack() {
         />
         <Tab.Screen
             name="Messages"
-            component={MessagesScreen}
+            component={MessagePage}
             options={{
                 headerShown: true, // full custom header
-                header: () => (<SafeAreaView edges={['top']} className="bg-green-600">
-                    <StatusBar barStyle="light-content" backgroundColor="#16a34a"/>
-                    <View className="flex-row justify-between items-center px-4 py-3">
-                        <Text className="text-xl font-bold text-white">Messages</Text>
-                        <Text className="text-white font-semibold">My Balance: £3100.05</Text>
-                    </View>
-                </SafeAreaView>),
+                header: () => (<MessageHeader/>),
                 tabBarIcon: ({color, size, focused}) => (<AnimatedIcon
                     name="message-text"
                     color={color}
@@ -97,24 +107,6 @@ export default function TabStack() {
         />
 
 
-        <Tab.Screen
-            name="Contacts"
-            component={ContactsScreen}
-            options={{
-                headerShown: true, // full custom header
-                header: () => (<SafeAreaView edges={['top']} className="bg-green-600">
-                    <StatusBar barStyle="light-content" backgroundColor="#16a34a"/>
-                    <View className="flex-row justify-center text-center px-4 py-3">
-                        <Text className="text-xl text-center font-bold text-white">Contacts</Text>
-                    </View>
-                </SafeAreaView>), tabBarIcon: ({color, size, focused}) => (<AnimatedIcon
-                    name="account-group"
-                    color={color}
-                    size={size}
-                    focused={focused}
-                />),
-            }}
-        />
 
 
     </Tab.Navigator>);
