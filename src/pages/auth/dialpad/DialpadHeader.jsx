@@ -1,17 +1,24 @@
-import {Component} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StatusBar, Text, View} from "react-native";
 import MenuComponent from "../../../components/MenuComponent";
+import {useNavigation} from "@react-navigation/native";
 
 export default (() => {
-    const menuOptions = [{label: "Numbers", value: "numbers"}, {label: "Rates", value: "rates"}, {
-        label: "Add Credit",
-        value: "credit"
-    },];
+    const navigation = useNavigation();
+    const menuOptions = [
+        {label: "Numbers", value: "numbers"},
+        {label: "Rates", value: "my_number"},
+        {label: "Add Credit",value: "pricing"},
+        {label: "Payment",value: "payment"},
+        {label: "Select Number",value: "select_number"}
+    ];
 
-    const handleMenuSelect = (value) => {
-        console.log("Selected:", value);
-        alert(`You clicked: ${value}`);
+     const handleMenuSelect = (value) => {
+        try {
+            navigation.navigate(value)
+        } catch (err) {
+            console.log(err);
+        }
     };
     return <SafeAreaView edges={['top']} className="bg-green-600 relative">
         <StatusBar barStyle="light-content" backgroundColor="#16a34a"/>

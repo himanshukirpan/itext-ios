@@ -2,6 +2,7 @@ import GuestStack from "./GuestStack";
 import TabStack from "./TabStack";
 import {NavigationContainer} from "@react-navigation/native";
 import {useAuthStore} from "../store/authStore";
+import PageStack from "./PageStack";
 
 export default (() => {
     const {data} = useAuthStore();
@@ -10,7 +11,7 @@ export default (() => {
         <NavigationContainer>
             {
                 data.login ?
-                    <TabStack/> :
+                    <PageStack/> :
                     <GuestStack/>
             }
         </NavigationContainer>

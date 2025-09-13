@@ -43,6 +43,7 @@ export default function TabStack() {
 
         }}
     >
+
         <Tab.Screen
             name="Contacts"
             component={ContactPage}
@@ -99,5 +100,9 @@ export default function TabStack() {
                 />),
             }}
         />
+
+
+
+
     </Tab.Navigator>);
 }
