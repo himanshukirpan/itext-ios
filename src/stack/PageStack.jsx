@@ -13,7 +13,15 @@ const Stack = createNativeStackNavigator();
 export default (() => {
     return <Stack.Navigator screenOptions={{
         headerBackTitleVisible: false, // removes the back text
-      }}>
+        headerStyle: {
+            backgroundColor: "#16a34a", // ✅ Header background
+        },
+        headerTintColor: "#fff", // ✅ Back button & icons color
+        headerTitleStyle: {
+            color: "#fff", // ✅ Title text color
+            fontWeight: "bold",
+        }
+    }}>
         <Stack.Screen
             name={'tabs'}
             component={TabStack}
@@ -22,12 +30,12 @@ export default (() => {
         <Stack.Screen
             name={"numbers"}
             component={NumberPage}
-            options={{title:'Numbers' , headerShown: true}}
+            options={{title: 'Numbers', headerShown: true}}
         />
         <Stack.Screen
             name={"my_number"}
             component={MyNumberDetailPage}
-            options={{title:'My Number Details' , headerShown: true}}
+            options={{title: 'My Number Details', headerShown: true}}
         />
         <Stack.Screen
             name={'payment'}

@@ -71,46 +71,6 @@ export default (() => {
                 </View>
             </ScrollView>
 
-            {/* Swipe to Pay Button */}
-            {/*<View className="absolute bottom-6 left-4 right-4">*/}
-            {/*    <SwipeButton*/}
-            {/*        disabled={amount === ""}*/}
-            {/*        swipeSuccessThreshold={70}*/}
-            {/*        height={60}*/}
-            {/*        railBackgroundColor="#f3f3f3"*/}
-            {/*        railBorderColor="#ddd"*/}
-            {/*        railFillBackgroundColor="transparent"*/}
-            {/*        thumbIconBackgroundColor="white"*/}
-            {/*        thumbIconComponent={() => (*/}
-            {/*            <MaterialIcons name="arrow-forward" size={28} color="#fff"/>*/}
-            {/*        )}*/}
-            {/*        railFillChild={*/}
-            {/*            <Animated.View*/}
-            {/*                style={[*/}
-            {/*                    {*/}
-            {/*                        flex: 1,*/}
-            {/*                        borderRadius: 50,*/}
-            {/*                        justifyContent: "center",*/}
-            {/*                        alignItems: "center",*/}
-            {/*                    },*/}
-
-            {/*                ]}*/}
-            {/*            >*/}
-            {/*                <Text className="text-white font-semibold text-lg">*/}
-            {/*                    Swipe to Pay £{amount || "0.00"}*/}
-            {/*                </Text>*/}
-            {/*            </Animated.View>*/}
-            {/*        }*/}
-            {/*        // 👇 update progress continuously*/}
-            {/*        onSwipeMove={(percentage) => {*/}
-            {/*            progress.value = percentage / 100;*/}
-            {/*        }}*/}
-            {/*        onSwipeSuccess={() => {*/}
-            {/*            alert(`Proceeding payment of £${amount}`);*/}
-            {/*        }}*/}
-            {/*    />*/}
-            {/*</View>*/}
-
             <PaymentSwiperComponent amount={amount}/>
         </View>
     );
